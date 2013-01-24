@@ -23,12 +23,12 @@ int device_handle_key(int key_code, int visible) {
             case KEY_CAPSLOCK:
             case KEY_DOWN:
             case KEY_VOLUMEDOWN:
+                        case KEY_HOME:
                 return HIGHLIGHT_DOWN;
-            case KEY_MENU:
-                return NO_ACTION;
             case KEY_LEFTSHIFT:
             case KEY_UP:
             case KEY_VOLUMEUP:
+                        case KEY_MENU:
                 return HIGHLIGHT_UP;
             case KEY_HOMEPAGE:
                 if (ui_get_showing_back_button()) {
