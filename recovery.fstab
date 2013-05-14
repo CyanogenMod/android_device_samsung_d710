@@ -7,6 +7,7 @@
 /cache		ext4		/dev/block/mmcblk0p7
 /system		ext4		/dev/block/mmcblk0p9
 /data		ext4		/dev/block/mmcblk0p10
+/preload	ext4		/dev/block/mmcblk0p12
 
 /sdcard		vfat		/dev/block/mmcblk0p11
-/external_sd	vfat		/dev/block/cyasblkdevblk0p1 /dev/block/cyasblkdevblk0
+/external_sd	vfat		/dev/block/cyasblkdevblk0p1  fstype2=ext4

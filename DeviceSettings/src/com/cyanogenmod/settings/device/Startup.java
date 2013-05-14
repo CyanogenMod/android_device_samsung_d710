@@ -24,7 +24,7 @@ public class Startup extends BroadcastReceiver {
 
     @Override
     public void onReceive(final Context context, final Intent bootintent) {
-        DockFragmentActivity.restore(context);
+        //DockFragmentActivity.restore(context);
         HapticFragmentActivity.restore(context);
         mDNIeScenario.restore(context);
         mDNIeMode.restore(context);

@@ -74,8 +74,8 @@ public class DeviceSettings extends FragmentActivity {
                 HapticFragmentActivity.class, null);
         mTabsAdapter.addTab(bar.newTab().setText(R.string.category_storage_title),
                 StorageFragmentActivity.class, null);
-        mTabsAdapter.addTab(bar.newTab().setText(R.string.category_dock_title),
-                DockFragmentActivity.class, null);
+        //mTabsAdapter.addTab(bar.newTab().setText(R.string.category_dock_title),
+                //DockFragmentActivity.class, null);
 
         if (savedInstanceState != null) {
             bar.setSelectedNavigationItem(savedInstanceState.getInt("tab", 0));

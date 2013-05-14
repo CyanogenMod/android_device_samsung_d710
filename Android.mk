@@ -12,14 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-LOCAL_PATH := $(call my-dir)
-
-ifeq ($(TARGET_DEVICE),d710)
-
-ifneq ($(TARGET_SIMULATOR),true)
-include $(call all-makefiles-under,$(LOCAL_PATH))
-endif
-
+ifneq ($(filter d710,$(TARGET_DEVICE)),)
+    include $(all-subdir-makefiles)
 endif
 
 
