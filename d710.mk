@@ -59,7 +59,7 @@ PRODUCT_COPY_FILES += \
 
 # Packages
 PRODUCT_PACKAGES := \
-    GalaxyS2Settings
+    DeviceSettings
 
 # WIMAX
 PRODUCT_PACKAGES += \
