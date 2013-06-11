@@ -25,7 +25,7 @@ TARGET_RECOVERY_INITRC := device/samsung/d710/recovery/recovery.rc
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/samsung/d710/bluetooth
 
 # Kernel Config
-TARGET_KERNEL_SOURCE := kernel/samsung/smdk4210
+TARGET_KERNEL_SOURCE := kernel/samsung/smdk4412
 TARGET_KERNEL_CONFIG := cyanogenmod_d710_defconfig
 
 # Notification LED
