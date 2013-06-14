@@ -21,6 +21,9 @@ PRODUCT_RELEASE_NAME := SPH-D710
 TARGET_SCREEN_HEIGHT := 800
 TARGET_SCREEN_WIDTH := 480
 
+## Specify phone tech before including full_phone
+$(call inherit-product, vendor/cm/config/cdma.mk)
+
 # Inherit some common CM stuff.
 $(call inherit-product, vendor/cm/config/common_full_phone.mk)
 
