@@ -32,6 +32,7 @@ TARGET_KERNEL_CONFIG := cyanogenmod_d710_defconfig
 BOARD_HAS_LED_NOTIF := true
 
 # RIL
+BOARD_PROVIDES_LIBRIL := false
 BOARD_MOBILEDATA_INTERFACE_NAME := "ppp0"
 
 # Recovery
