@@ -61,6 +61,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES := \
     DeviceSettings
 
+# Sensors
+PRODUCT_PACKAGES := \
+    sensors.exynos4
+
 # WIMAX
 PRODUCT_PACKAGES += \
     WiMAXSettings \
