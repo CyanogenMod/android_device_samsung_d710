@@ -19,7 +19,6 @@
 -include device/samsung/galaxys2-common/BoardCommonConfig.mk
 
 TARGET_BOARD_INFO_FILE := device/samsung/d710/board-info.txt
-TARGET_RECOVERY_INITRC := device/samsung/d710/recovery/recovery.rc
 
 # Bluetooth
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/samsung/d710/bluetooth
@@ -28,19 +27,27 @@ BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/samsung/d710/bluetooth
 TARGET_KERNEL_SOURCE := kernel/samsung/smdk4412
 TARGET_KERNEL_CONFIG := cyanogenmod_d710_defconfig
 
+# Selinux
+BOARD_SEPOLICY_DIRS += \
+    device/samsung/d710/selinux
+
+BOARD_SEPOLICY_UNION += \
+    device.te \
+    file_contexts \
+    wimax.te
+
 # Notification LED
 BOARD_HAS_LED_NOTIF := true
 
 # RIL
-BOARD_PROVIDES_LIBRIL := false
+BOARD_PROVIDES_LIBRIL := true
 BOARD_MOBILEDATA_INTERFACE_NAME := "ppp0"
 
 # Recovery
 BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/samsung/d710/recovery/recovery_keys.c
 BOARD_UMS_LUNFILE := "/sys/devices/platform/s3c-usbgadget/gadget/lun%d/file"
 BOARD_USE_CUSTOM_RECOVERY_FONT := \"roboto_10x18.h\"
-
-TARGET_SPECIFIC_HEADER_PATH := device/samsung/d710/include
+TARGET_RECOVERY_FSTAB := device/samsung/d710/rootdir/fstab.smdk4210
 
 # assert
 TARGET_OTA_ASSERT_DEVICE := epic4gtouch,SPH-D710,d710,smdk4210,SPH-D710VMUB,SPH-D710BST
