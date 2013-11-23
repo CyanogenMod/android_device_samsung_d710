@@ -30,6 +30,9 @@ on init
 
 on fs
     mount_all /fstab.smdk4210
+
+    mkdir /efs/bluetooth
+    mkdir /efs/wifi
     chown radio system /efs/bluetooth
     chown radio system /efs/wifi
     chmod 0775 /efs/bluetooth
@@ -38,6 +41,21 @@ on fs
     mkdir /data/misc/vpn/profiles 0770 system system
     mkdir /data/misc/radio 0775 radio system
     chmod 0770 /data/misc/wifi 
+
+# Restorecon
+    restorecon /efs/nv_data.bin
+    restorecon /efs/nv_data.bin.md5
+    restorecon /efs/.nv_core.bak
+    restorecon /efs/.nv_core.bak.md5
+    restorecon /efs/.nv_data.bak
+    restorecon /efs/.nv_data.bak.md5
+    restorecon /efs/.nv_state
+    restorecon /efs/bluetooth/bt_addr
+    restorecon /efs/FactoryApp/factorymode
+    restorecon /efs/FactoryApp/hw_ver
+    restorecon /efs/FactoryApp/keystr
+    restorecon /efs/FactoryApp/serial_no
+    restorecon /efs/imei/mps_code.dat
 
 on post-fs-data
 # insmod kernel modules
@@ -140,6 +158,8 @@ on post-fs-data
     chown radio radio /dev/dpram0
     chown radio radio /dev/dpram1
     chown radio radio /dev/ttyCPLOG0
+    restorecon /dev/swmxctl
+    restorecon /dev/uwibro
 
 # permission for HDMI audio path
     chown media audio /sys/class/hdmi_audio/hdmi_audio/hdmi_audio_set_ext
@@ -180,7 +200,7 @@ on post-fs-data
     chown system radio /sys/devices/platform/sec-battery/power_supply/battery/hotspot
     chown system radio /sys/devices/platform/sec-battery/power_supply/battery/data_call
     chown system radio /sys/devices/platform/sec-battery/power_supply/battery/call
-    chown system radio /sys/devices/platform/sec-battery/power_supply/battery/wimax
+#    chown system radio /sys/devices/platform/sec-battery/power_supply/battery/wimax
     chown system radio /sys/devices/platform/sec-battery/power_supply/battery/browser
     chown system radio /sys/devices/platform/sec-battery/power_supply/battery/camera
 
@@ -246,8 +266,8 @@ on post-fs-data
 # Vibetonz
     chmod 0660 /dev/tspdrv
     chown root shell /dev/tspdrv
-    chmod 0660 /sys/vibrator/pwm_val
-    chown system system /sys/vibrator/pwm_val
+    chmod 0660 /sys/class/timed_output/vibrator/pwm_value
+    chown system system /sys/class/timed_output/vibrator/pwm_value
 
 # Permissions for LCD
     chown system radio /sys/class/lcd/panel/lcd_power
@@ -331,7 +351,7 @@ on post-fs-data
     setprop net.tcp.buffersize.edge    4093,26280,35040,4096,16384,35040
     setprop net.tcp.buffersize.gprs    4092,8760,11680,4096,8760,11680
     setprop net.tcp.buffersize.evdo_b  4094,87380,262144,4096,16384,262144
-    setprop net.tcp.buffersize.wimax   4096,524288,1048576,4096,16384,110208
+#    setprop net.tcp.buffersize.wimax   4096,524288,1048576,4096,16384,110208
 
 # for device encryption
     setprop vold.post_fs_data_done 1
@@ -347,15 +367,8 @@ on post-fs-data
 on boot
     mount debugfs /sys/kernel/debug /sys/kernel/debug
 
-    setprop ro.radio.noril yes
-
-on property:ril.cdma.data_state=1
-    restart pppd_cdma
-
-on property:ril.cdma.data_state=0
-    stop pppd_cdma
-
-    setprop wifi.interface wlan0
+# TelephonyManager.java requires this
+    chmod 0644 /proc/cmdline
 
 # Device Encryption by B2B Security Lab.
     setprop ro.crypto.keyfile.userdata /efs/metadata
@@ -367,57 +380,16 @@ on property:ril.cdma.data_state=0
     setprop status.battery.level_scale 9
 
 # For RIL
-service cpboot-daemon /sbin/cbd -d -p 8
-    class main
-    user root
-    group radio cache inet misc audio sdcard_rw log sdcard_r
+#service cpboot-daemon /sbin/cbd -d -p 8
+#    class main
+#    user root
+#    group radio cache inet misc audio sdcard_rw log sdcard_r
 
-# bluetooth mac address
-service bdaddr /system/bin/bdaddr_read
-    class main
-    user root
-    disabled
-    oneshot
-
-# Wimax changes
-service dhcpcd_uwbr0 /system/bin/dhcpcd -ABKL
-    class main
-    disabled
-    oneshot
-
-service iprenew_uwbr0 /system/bin/dhcpcd -n
-    class main
-    disabled
-    oneshot
-
-# Bluetooth PAN
-service dhcpcd_bnep0 /system/bin/dhcpcd -ABKL
-    class main
-    disabled
-    oneshot
-
-service iprenew_bnep0 /system/bin/dhcpcd -n
-    class main
-    disabled
-    oneshot
-
-service dhcpcd_wlan0 /system/bin/dhcpcd -ABKL
-    class main
-    disabled
-    oneshot
-
-service dhcpcd_p2p /system/bin/dhcpcd -aABKL
-    class main
-    disabled
-    oneshot
-
-service iprenew_wlan0 /system/bin/dhcpcd -n
-    class main
-    disabled
-    oneshot
-
-service iprenew_p2p /system/bin/dhcpcd -n
-    class main
+service mdnsd /system/bin/mdnsd
+	class main
+    user mdnsr
+    group inet net_raw
+    socket mdnsd stream 0660 mdnsr inet
     disabled
     oneshot
 
@@ -437,6 +409,51 @@ service wpa_supplicant /system/bin/wpa_supplicant \
     socket wpa_wlan0 dgram 660 wifi wifi
     disabled
     oneshot
+
+service dhcpcd_wlan0 /system/bin/dhcpcd -ABKL
+    class main
+    disabled
+    oneshot
+
+service dhcpcd_p2p /system/bin/dhcpcd -aABKL
+    class main
+    disabled
+    oneshot
+
+service dhcpcd_bt-pan /system/bin/dhcpcd -ABKL
+    class main
+    disabled
+    oneshot
+
+service iprenew_wlan0 /system/bin/dhcpcd -n
+    class main
+    disabled
+    oneshot
+
+service iprenew_p2p /system/bin/dhcpcd -n
+    class main
+    disabled
+    oneshot
+
+service iprenew_bt-pan /system/bin/dhcpcd -n
+    class main
+    disabled
+    oneshot
+
+# bluetooth mac address
+service bdaddr /system/bin/bdaddr_read
+    class main
+    user root
+    disabled
+    oneshot
+
+on property:ril.cdma.data_state=1
+    restart pppd_cdma
+
+on property:ril.cdma.data_state=0
+    stop pppd_cdma
+
+    setprop wifi.interface wlan0
 
 service immvibed /system/bin/immvibed
     class core
@@ -469,14 +486,25 @@ service gpsd /system/bin/gpsd
     user system
     group system inet
 
-service wimax_route /system/bin/route add default dev uwbr0
-    class main
-    disabled
-    oneshot
-
 service pppd_cdma /system/bin/pppd_runner
     class main
     user root
     group radio cache inet misc system
     disabled
     oneshot
+
+# Wimax changes
+#service dhcpcd_uwbr0 /system/bin/dhcpcd -ABKL
+#    class main
+#    disabled
+#    oneshot
+
+#service wimax_route /system/bin/route add default dev uwbr0
+#    class main
+#    disabled
+#    oneshot
+
+#service iprenew_uwbr0 /system/bin/dhcpcd -n
+#    class main
+#    disabled
+#    oneshot

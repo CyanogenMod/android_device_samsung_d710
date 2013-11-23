@@ -16,6 +16,7 @@ LOCAL_PATH := device/samsung/d710
 
 # Init files
 PRODUCT_COPY_FILES := \
+    $(LOCAL_PATH)/rootdir/fstab.smdk4210:root/fstab.smdk4210 \
     $(LOCAL_PATH)/rootdir/init.smdk4210.rc:root/init.smdk4210.rc \
     $(LOCAL_PATH)/rootdir/init.smdk4210.usb.rc:root/init.smdk4210.usb.rc \
     $(LOCAL_PATH)/rootdir/ueventd.smdk4210.rc:root/ueventd.smdk4210.rc
@@ -40,10 +41,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/usr/idc/mxt224_ts_input.idc:system/usr/idc/mxt224_ts_input.idc \
     $(LOCAL_PATH)/usr/idc/sec_touchscreen.idc:system/usr/idc/sec_touchscreen.idc
 
-# Vold
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/vold.fstab:system/etc/vold.fstab
-
 # Fix USB transfer speeds
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.vold.umsdirtyratio=20
@@ -57,17 +54,18 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/gps.conf:system/etc/gps.conf \
     $(LOCAL_PATH)/configs/sirfgps.conf:system/etc/sirfgps.conf
 
-# Packages
-PRODUCT_PACKAGES := \
-    DeviceSettings
+# Sensors
+PRODUCT_PACKAGES += \
+    sensors.exynos4
 
 # WIMAX
 PRODUCT_PACKAGES += \
-    WiMAXSettings \
-    WiMAXHiddenMenu \
     AngryGPS \
     SprintMenu \
     SystemUpdateUI
+
+#    WiMAXSettings \
+#    WiMAXHiddenMenu \
 
 # Screen density is actually considered a locale (since it is taken into account
 # the the build-time selection of resources). The product definitions including
