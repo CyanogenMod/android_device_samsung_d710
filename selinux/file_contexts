@@ -6,3 +6,6 @@
 /dev/ttyCPLOG0                  u:object_r:radio_device:s0
 /dev/uwibro                     u:object_r:wimax_device:s0
 /dev/swmxctl                    u:object_r:wimax_device:s0
+
+# Camera
+/dev/exynos-mem                         u:object_r:video_device:s0

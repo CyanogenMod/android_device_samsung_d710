@@ -33,7 +33,10 @@ BOARD_SEPOLICY_DIRS += \
 
 BOARD_SEPOLICY_UNION += \
     device.te \
+    file.te \
     file_contexts \
+    mediaserver.te \
+    system.te \
     wimax.te
 
 # Notification LED
