@@ -506,7 +506,7 @@ service fuse_sdcard1 /system/bin/sdcard -u 1023 -g 1023 -d /mnt/media_rw/sdcard1
 
 service fuse_usbdisk0 /system/bin/sdcard -u 1023 -g 1023 -d /mnt/media_rw/usbdisk0 /storage/usbdisk0
     class late_start
-    disabled 
+    disabled
 
 # Wimax changes
 #service dhcpcd_uwbr0 /system/bin/dhcpcd -ABKL
