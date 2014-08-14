@@ -58,14 +58,9 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     sensors.exynos4
 
-# WIMAX
+# GPS
 PRODUCT_PACKAGES += \
-    AngryGPS \
-    SprintMenu \
-    SystemUpdateUI
-
-#    WiMAXSettings \
-#    WiMAXHiddenMenu \
+    AngryGPS
 
 # Screen density is actually considered a locale (since it is taken into account
 # the the build-time selection of resources). The product definitions including
@@ -96,17 +91,12 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.service.usb.setting=0 \
     persist.service.adb.enable=1 \
-    persist.sys.usb.config=mass_storage,adb \
     persist.service.usb.hubport=4
 
 # Telephony property for CDMA
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.telephony.default_network=4 \
-    ro.com.google.clientidbase=android-sprint-us \
-    ro.cdma.home.operator.numeric=310120 \
-    ro.cdma.home.operator.alpha=Sprint \
     net.cdma.pppd.authtype=require-pap \
-    net.cdma.pppd.user=user[SPACE]SprintNextel \
     net.cdma.datalinkinterface=/dev/ttyCDMA0 \
     net.interfaces.defaultroute=cdma \
     net.cdma.ppp.interface=ppp0 \
@@ -114,8 +104,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     net.connectivity.type=CDMA1 \
     mobiledata.interfaces=ppp0,wlan0,uwbr0 \
     ro.telephony.ril_class=SamsungCDMAv6RIL \
-    ro.ril.samsung_cdma=true \
-    ro.carrier=Sprint
+    ro.ril.samsung_cdma=true
 
 # enable Google-specific location features,
 # like NetworkLocationProvider and LocationCollector

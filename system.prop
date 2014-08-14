@@ -1,7 +1,9 @@
-#
-# system.prop for d710
-#
-
 rild.libpath=/system/lib/libsec-ril40.so
 rild.libargs=-d /dev/ttyS0
-ro.sf.lcd_density=240
+ro.sf.lcd_density=220
+
+ro.com.google.clientidbase=android-sprint-us
+ro.cdma.home.operator.numeric=310120
+ro.cdma.home.operator.alpha=Sprint
+net.cdma.pppd.user=user[SPACE]SprintNextel
+ro.carrier=Sprint

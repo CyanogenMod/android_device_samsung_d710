@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-ifneq ($(filter d710,$(TARGET_DEVICE)),)
+ifneq ($(filter d710 r760,$(TARGET_DEVICE)),)
     include $(all-subdir-makefiles)
 endif
 
