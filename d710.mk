@@ -58,9 +58,11 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     sensors.exynos4
 
-# GPS
+# Packages
 PRODUCT_PACKAGES += \
-    AngryGPS
+    AngryGPS \
+    WiMAXSettings \
+    WiMAXHiddenMenu
 
 # Screen density is actually considered a locale (since it is taken into account
 # the the build-time selection of resources). The product definitions including
