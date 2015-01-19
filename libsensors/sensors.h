@@ -101,8 +101,8 @@ __BEGIN_DECLS
 #define EVENT_TYPE_PROXIMITY        ABS_DISTANCE
 #define EVENT_TYPE_LIGHT            ABS_MISC
 
-#define EVENT_TYPE_GYRO_X           REL_RX
-#define EVENT_TYPE_GYRO_Y           REL_RY
+#define EVENT_TYPE_GYRO_X           REL_RY
+#define EVENT_TYPE_GYRO_Y           REL_RX
 #define EVENT_TYPE_GYRO_Z           REL_RZ
 
 // 90 LSB = 1G for KR3DM
@@ -114,7 +114,7 @@ __BEGIN_DECLS
 #define CONVERT_A                   (GRAVITY_EARTH / LSB / NUMOFACCDATA)
 #define CONVERT_A_X                 (CONVERT_A)
 #define CONVERT_A_Y                 (-CONVERT_A)
-#define CONVERT_A_Z                 (-CONVERT_A)
+#define CONVERT_A_Z                 (CONVERT_A)
 
 // conversion of magnetic data to uT units
 #define CONVERT_M                   (1.0f/16.0f)
@@ -133,7 +133,7 @@ __BEGIN_DECLS
 #define CONVERT_GYRO                ((70.0f / 4000.0f) * ((float)M_PI / 180.0f))
 #define CONVERT_GYRO_X              (CONVERT_GYRO)
 #define CONVERT_GYRO_Y              (CONVERT_GYRO)
-#define CONVERT_GYRO_Z              (CONVERT_GYRO)
+#define CONVERT_GYRO_Z              (-CONVERT_GYRO)
 
 #define SENSOR_STATE_MASK           (0x7FFF)
 
